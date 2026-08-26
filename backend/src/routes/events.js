@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 // GET /api/events/:id
 router.get('/:id', (req, res) => {
-  const event = events.find(e => e.id === req.params.id);
+  const event = events.find((e) => e.id === req.params.id);
   if (!event) {
     return res.status(404).json({ error: 'Event not found' });
   }

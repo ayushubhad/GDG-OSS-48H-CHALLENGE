@@ -17,7 +17,7 @@ const CATEGORIES = [
   'Cybersecurity',
   'App Development',
   'DevOps',
-  'Blockchain'
+  'Blockchain',
 ];
 
 const Home = () => {
@@ -44,47 +44,47 @@ const Home = () => {
     fetchEvents();
   }, []);
 
-  const filteredEvents = events.filter(event => {
-    const matchesSearch = 
+  const filteredEvents = events.filter((event) => {
+    const matchesSearch =
       event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       event.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
       event.speaker.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
     const matchesCategory = selectedCategory === 'All' || event.category === selectedCategory;
-    
+
     return matchesSearch && matchesCategory;
   });
 
   return (
     <div className="home">
       <Hero />
-      
+
       <section id="events" className="events-section">
         <div className="events-header">
           <h2>Upcoming Events</h2>
           <p>Find the perfect event to enhance your skills and network.</p>
         </div>
-        
+
         <div className="events-controls">
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <CategoryFilter 
-            categories={CATEGORIES} 
-            selectedCategory={selectedCategory} 
-            setSelectedCategory={setSelectedCategory} 
+          <CategoryFilter
+            categories={CATEGORIES}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
           />
         </div>
-        
+
         {loading && <LoadingState />}
-        
+
         {!loading && error && <ErrorState message={error} onRetry={fetchEvents} />}
-        
+
         {!loading && !error && (
           <>
             {filteredEvents.length === 0 ? (
               <div className="no-results">
                 <h3>No events found</h3>
                 <p>Try adjusting your search or filters.</p>
-                <button 
+                <button
                   className="btn-secondary"
                   onClick={() => {
                     setSearchTerm('');
@@ -97,7 +97,7 @@ const Home = () => {
               </div>
             ) : (
               <div className="events-grid">
-                {filteredEvents.map(event => (
+                {filteredEvents.map((event) => (
                   <EventCard key={event.id} event={event} />
                 ))}
               </div>

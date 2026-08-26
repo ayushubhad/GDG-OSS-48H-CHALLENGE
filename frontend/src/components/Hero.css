@@ -96,13 +96,22 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
 }
 
 @media (max-width: 992px) {
-  .hero-title { font-size: 3rem; }
-  .hero-visual { height: 300px; }
+  .hero-title {
+    font-size: 3rem;
+  }
+  .hero-visual {
+    height: 300px;
+  }
 }
 
 @media (max-width: 768px) {

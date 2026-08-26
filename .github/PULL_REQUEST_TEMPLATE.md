@@ -1,28 +1,23 @@
 ## Description
-
-What did you change?
+[Describe the changes you made here.]
 
 ## Motivation
-
-Why was this change needed?
+[Why was this change needed? What problem does it solve?]
 
 ## Changes Made
-
-List the important changes.
+[List the specific changes made in this pull request.]
 
 ## Testing
-
-How did you test your changes?
+[How did you test your changes? Did you add any automated tests?]
 
 ## Screenshots
-
-If applicable.
+[If applicable, add screenshots to show visual changes.]
 
 ## Checklist
 
-- [ ] I worked on a feature branch
-- [ ] I tested my changes locally
-- [ ] Existing tests pass
-- [ ] No secrets were committed
-- [ ] Documentation was updated if required
-- [ ] My changes are focused and relevant
+* [ ] I created a feature branch.
+* [ ] I tested my changes.
+* [ ] Existing tests pass.
+* [ ] No secrets were committed.
+* [ ] Documentation was updated if necessary.
+* [ ] The PR is focused and relevant.

@@ -9,7 +9,9 @@ const Hero = () => {
         <p className="hero-subtitle">
           Join workshops, seminars, and networking sessions to learn, connect, and grow.
         </p>
-        <a href="#events" className="btn-primary hero-btn">Explore Events</a>
+        <a href="#events" className="btn-primary hero-btn">
+          Explore Events
+        </a>
       </div>
       <div className="hero-visual">
         <div className="visual-circle circle-1"></div>

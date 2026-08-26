@@ -9,7 +9,7 @@ import * as api from '../services/api';
 vi.mock('../services/api', () => ({
   getEvents: vi.fn(),
   getEventById: vi.fn(),
-  registerForEvent: vi.fn()
+  registerForEvent: vi.fn(),
 }));
 
 const mockEvents = [
@@ -20,7 +20,7 @@ const mockEvents = [
     category: 'Web Development',
     speaker: 'Jane Doe',
     capacity: 100,
-    registeredCount: 50
+    registeredCount: 50,
   },
   {
     id: 'event-2',
@@ -29,8 +29,8 @@ const mockEvents = [
     category: 'AI / ML',
     speaker: 'John Smith',
     capacity: 50,
-    registeredCount: 50
-  }
+    registeredCount: 50,
+  },
 ];
 
 describe('GDG EventHub Frontend', () => {
@@ -42,9 +42,9 @@ describe('GDG EventHub Frontend', () => {
     it('renders event list', async () => {
       api.getEvents.mockResolvedValue(mockEvents);
       render(<App />);
-      
+
       expect(screen.getByText('Loading...')).toBeInTheDocument();
-      
+
       await waitFor(() => {
         expect(screen.getByText('React Workshop')).toBeInTheDocument();
         expect(screen.getByText('Python ML')).toBeInTheDocument();
@@ -54,14 +54,14 @@ describe('GDG EventHub Frontend', () => {
     it('filters events by search', async () => {
       api.getEvents.mockResolvedValue(mockEvents);
       render(<App />);
-      
+
       await waitFor(() => {
         expect(screen.getByText('React Workshop')).toBeInTheDocument();
       });
-      
+
       const searchInput = screen.getByPlaceholderText(/Search events/i);
       fireEvent.change(searchInput, { target: { value: 'Python' } });
-      
+
       expect(screen.queryByText('React Workshop')).not.toBeInTheDocument();
       expect(screen.getByText('Python ML')).toBeInTheDocument();
     });
@@ -69,14 +69,14 @@ describe('GDG EventHub Frontend', () => {
     it('filters events by category', async () => {
       api.getEvents.mockResolvedValue(mockEvents);
       render(<App />);
-      
+
       await waitFor(() => {
         expect(screen.getByText('React Workshop')).toBeInTheDocument();
       });
-      
+
       const categoryBtn = screen.getByRole('button', { name: 'AI / ML' });
       fireEvent.click(categoryBtn);
-      
+
       expect(screen.queryByText('React Workshop')).not.toBeInTheDocument();
       expect(screen.getByText('Python ML')).toBeInTheDocument();
     });

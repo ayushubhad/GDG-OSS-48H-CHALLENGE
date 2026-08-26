@@ -121,7 +121,7 @@
   .event-layout {
     grid-template-columns: 1fr;
   }
-  
+
   .registration-card {
     position: static;
   }

@@ -6,7 +6,7 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    college: ''
+    college: '',
   });
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
   const [errorMessage, setErrorMessage] = useState('');
@@ -42,9 +42,9 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
       <h3>Register for Event</h3>
-      
+
       {status === 'error' && <div className="error-message">{errorMessage}</div>}
-      
+
       <div className="form-group">
         <label htmlFor="name">Full Name</label>
         <input
@@ -56,7 +56,7 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
           required
         />
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="email">Email</label>
         <input
@@ -68,7 +68,7 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
           required
         />
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="college">College / Organization</label>
         <input
@@ -80,12 +80,8 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
           required
         />
       </div>
-      
-      <button 
-        type="submit" 
-        className="btn-primary submit-btn"
-        disabled={status === 'loading'}
-      >
+
+      <button type="submit" className="btn-primary submit-btn" disabled={status === 'loading'}>
         {status === 'loading' ? 'Registering...' : 'Register'}
       </button>
     </form>

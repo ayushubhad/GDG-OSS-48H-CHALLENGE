@@ -1,76 +1,104 @@
 # GDG EventHub
 
-GDG EventHub is a modern platform for discovering and registering for technical events happening on campus. It provides a simple, accessible way for students to explore tech communities and sign up for workshops, seminars, and networking sessions.
+## About
+GDG EventHub is a campus-event platform designed around discovering and registering for technical community events. It provides a simple, accessible way for students to explore tech communities and sign up for workshops, seminars, and networking sessions.
 
 ## Features
-- **Event Discovery**: Browse upcoming GDG events.
-- **Search & Filtering**: Quickly find events by title, category, or speaker.
-- **Event Details**: View in-depth information about events, capacity, and hosts.
-- **Registration**: Sign up for events easily.
+* Event discovery
+* Search
+* Category filtering
+* Event details
+* Registration
+* Backend API
+* Health endpoint
+* Testing
 
 ## Tech Stack
-- **Frontend**: React, Vite, React Router, CSS
-- **Backend**: Node.js, Express.js
-- **Data**: JSON (Local file storage)
-- **Testing**: Vitest, React Testing Library (Frontend), Jest, Supertest (Backend)
+* React
+* Vite
+* Node.js
+* Express
+* JavaScript
+* Jest/Supertest
+* Vitest/React Testing Library
 
 ## Architecture
 ```
-React frontend
+React/Vite
       ↓
 Express API
       ↓
-JSON data
+Local JSON data
 ```
-The frontend application (React) makes HTTP requests to the backend (Express) which retrieves data from a local JSON file.
 
 ## Project Structure
-- `frontend/`: The React application.
-- `backend/`: The Node.js API server.
+* `frontend/`: The React Single Page Application (SPA) built with Vite.
+* `backend/`: The Node.js/Express API server that serves event data.
 
 ## Local Setup
 
-### Backend Setup
+### 1. Clone the repository
+```bash
+git clone https://github.com/Aryasurya12/GDG-OSS-48H-CHALLENGE.git
+cd GDG-OSS-48H-CHALLENGE
+```
+
+### 2. Install backend dependencies
 ```bash
 cd backend
 npm install
+```
+
+### 3. Install frontend dependencies
+```bash
+cd ../frontend
+npm install
+```
+
+### 4. Start backend
+In the `backend` directory, run:
+```bash
 npm start
 ```
 The backend API will run on `http://localhost:5000`.
 
-### Frontend Setup
-In a new terminal window:
+### 5. Start frontend
+Open a new terminal, navigate to the `frontend` directory, and run:
 ```bash
-cd frontend
-npm install
 npm run dev
 ```
 The frontend application will run on `http://localhost:5173`.
 
-## Testing
-
-### Frontend Tests
+### 6. Run tests
+To run frontend tests:
 ```bash
 cd frontend
 npm test
 ```
 
-### Backend Tests
+To run backend tests:
 ```bash
 cd backend
 npm test
 ```
 
 ## API Documentation
-- `GET /health` - Check API health status.
-- `GET /api/events` - Retrieve all events.
-- `GET /api/events/:id` - Retrieve a specific event by ID.
-- `POST /api/register` - Register a user for an event. Requires `name`, `email`, `college`, and `eventId`.
+
+* `GET /health` - Check API health status.
+  * Response: `{ "status": "ok" }`
+* `GET /api/events` - Retrieve all events.
+  * Response: Array of event objects.
+* `GET /api/events/:id` - Retrieve a specific event by ID.
+  * Response: Single event object.
+* `POST /api/register` - Register a user for an event.
+  * Request Body: `{ "name": "John Doe", "email": "john@example.com", "college": "GDG Campus", "eventId": "event-001" }`
+  * Response: `{ "message": "Registration successful" }`
 
 ## Environment Variables
-Copy `.env.example` to `.env` in the root (or in the respective folders if needed) to configure local variables like the PORT.
+The repository includes a `.env.example` file. Copy `.env.example` to `.env` in the root (or in the respective folders if required) to configure local variables like the PORT.
 
-## Future Improvements
-- User Authentication
-- Administrative dashboard for event management
-- Persistent database storage
+## Contribution
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started, our workflow, and pull request guidelines.
+
+## Security
+For information on reporting vulnerabilities and our security practices, please read our [SECURITY.md](SECURITY.md) policy.

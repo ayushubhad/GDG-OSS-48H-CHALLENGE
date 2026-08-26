@@ -4,7 +4,18 @@ import { Calendar, Clock, MapPin, User, Tag } from 'lucide-react';
 import './EventCard.css';
 
 const EventCard = ({ event }) => {
-  const { id, title, description, date, time, venue, category, speaker, capacity, registeredCount } = event;
+  const {
+    id,
+    title,
+    description,
+    date,
+    time,
+    venue,
+    category,
+    speaker,
+    capacity,
+    registeredCount,
+  } = event;
   const isFull = registeredCount >= capacity;
   const seatsLeft = capacity - registeredCount;
 
@@ -18,10 +29,10 @@ const EventCard = ({ event }) => {
           {isFull ? 'Sold Out' : `${seatsLeft} seats left`}
         </span>
       </div>
-      
+
       <h3 className="event-title">{title}</h3>
       <p className="event-description">{description.substring(0, 100)}...</p>
-      
+
       <div className="event-details">
         <div className="detail-item">
           <Calendar size={16} className="icon" />
@@ -40,7 +51,7 @@ const EventCard = ({ event }) => {
           <span>{speaker}</span>
         </div>
       </div>
-      
+
       <div className="event-card-actions">
         <Link to={`/events/${id}`} className="btn-secondary view-details-btn">
           View Details

@@ -10,9 +10,15 @@ const Navbar = () => {
           <span className="logo-text">Event Hub</span>
         </Link>
         <div className="nav-links">
-          <Link to="/" className="nav-link">Home</Link>
-          <a href="#events" className="nav-link">Events</a>
-          <a href="#about" className="nav-link">About</a>
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+          <a href="#events" className="nav-link">
+            Events
+          </a>
+          <a href="#about" className="nav-link">
+            About
+          </a>
         </div>
       </div>
     </nav>

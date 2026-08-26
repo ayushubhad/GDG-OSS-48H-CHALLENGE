@@ -31,15 +31,18 @@ const EventPage = () => {
   }, [id]);
 
   if (loading) return <LoadingState />;
-  
-  if (error) return (
-    <div className="event-page-error">
-      <ErrorState message={error} />
-      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <Link to="/" className="btn-primary">Return to Events</Link>
+
+  if (error)
+    return (
+      <div className="event-page-error">
+        <ErrorState message={error} />
+        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+          <Link to="/" className="btn-primary">
+            Return to Events
+          </Link>
+        </div>
       </div>
-    </div>
-  );
+    );
 
   if (!event) return null;
 
@@ -52,15 +55,15 @@ const EventPage = () => {
         <ArrowLeft size={20} />
         Back to Events
       </Link>
-      
+
       <div className="event-layout">
         <div className="event-main-details">
           <div className="event-badge">
             <Tag size={16} /> {event.category}
           </div>
-          
+
           <h1 className="event-page-title">{event.title}</h1>
-          
+
           <div className="event-meta-grid">
             <div className="meta-item">
               <Calendar className="icon" />
@@ -94,17 +97,19 @@ const EventPage = () => {
               <Users className="icon" />
               <div>
                 <strong>Capacity</strong>
-                <p>{event.registeredCount} / {event.capacity} registered</p>
+                <p>
+                  {event.registeredCount} / {event.capacity} registered
+                </p>
               </div>
             </div>
           </div>
-          
+
           <div className="event-description-box">
             <h2>About this Event</h2>
             <p>{event.description}</p>
           </div>
         </div>
-        
+
         <div className="event-sidebar">
           <div className="card registration-card">
             {isFull ? (
@@ -117,11 +122,11 @@ const EventPage = () => {
                 <div className="availability">
                   <span className="seats-badge">{seatsLeft} seats left</span>
                 </div>
-                <RegistrationForm 
-                  eventId={event.id} 
+                <RegistrationForm
+                  eventId={event.id}
                   onSuccess={() => {
                     // Could optionally refresh event data here to update registeredCount
-                  }} 
+                  }}
                 />
               </>
             )}

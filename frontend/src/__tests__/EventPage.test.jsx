@@ -7,7 +7,7 @@ import * as api from '../services/api';
 
 vi.mock('../services/api', () => ({
   getEventById: vi.fn(),
-  registerForEvent: vi.fn()
+  registerForEvent: vi.fn(),
 }));
 
 const mockEvent = {
@@ -20,7 +20,7 @@ const mockEvent = {
   registeredCount: 50,
   date: '2026-10-10',
   time: '10:00',
-  venue: 'Room A'
+  venue: 'Room A',
 };
 
 describe('Event Details', () => {
@@ -34,14 +34,14 @@ describe('Event Details', () => {
         <Routes>
           <Route path="/events/:id" element={<EventPage />} />
         </Routes>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
   };
 
   it('renders event details correctly', async () => {
     api.getEventById.mockResolvedValue(mockEvent);
     renderEventPage('event-1');
-    
+
     await waitFor(() => {
       expect(screen.getByText('React Workshop')).toBeInTheDocument();
       expect(screen.getByText('Learn React description')).toBeInTheDocument();
@@ -52,7 +52,7 @@ describe('Event Details', () => {
   it('renders 404 error for invalid event', async () => {
     api.getEventById.mockRejectedValue({ response: { status: 404 } });
     renderEventPage('invalid');
-    
+
     await waitFor(() => {
       expect(screen.getByText('Event not found')).toBeInTheDocument();
     });

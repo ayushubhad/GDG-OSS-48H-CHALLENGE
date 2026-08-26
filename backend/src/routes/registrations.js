@@ -9,7 +9,9 @@ router.post('/', (req, res) => {
   const { name, email, college, eventId } = req.body;
 
   if (!name || !email || !college || !eventId) {
-    return res.status(400).json({ error: 'Missing required fields: name, email, college, eventId' });
+    return res
+      .status(400)
+      .json({ error: 'Missing required fields: name, email, college, eventId' });
   }
 
   // Basic email validation
@@ -24,7 +26,7 @@ router.post('/', (req, res) => {
     email,
     college,
     eventId,
-    registeredAt: new Date().toISOString()
+    registeredAt: new Date().toISOString(),
   };
 
   registrations.push(newRegistration);
