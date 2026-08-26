@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          <span className="logo-text">GDG EventHub</span>
+          <span className="logo-text">Event Hub</span>
         </Link>
         <div className="nav-links">
           <Link to="/" className="nav-link">Home</Link>
