@@ -1,0 +1,98 @@
+[
+  {
+    "id": "event-001",
+    "title": "Introduction to Open Source",
+    "description": "Learn the basics of open source contribution, Git, and GitHub in this beginner-friendly workshop.",
+    "date": "2026-09-15",
+    "time": "14:00",
+    "venue": "Computer Science Building, Room 101",
+    "category": "Open Source",
+    "speaker": "Jane Doe",
+    "capacity": 50,
+    "registeredCount": 20
+  },
+  {
+    "id": "event-002",
+    "title": "Building React Applications",
+    "description": "A deep dive into modern React development including hooks, state management, and routing.",
+    "date": "2026-09-18",
+    "time": "10:00",
+    "venue": "Virtual",
+    "category": "Web Development",
+    "speaker": "John Smith",
+    "capacity": 100,
+    "registeredCount": 85
+  },
+  {
+    "id": "event-003",
+    "title": "Machine Learning with Python",
+    "description": "Explore the fundamentals of machine learning using popular Python libraries like scikit-learn and TensorFlow.",
+    "date": "2026-09-22",
+    "time": "15:30",
+    "venue": "Engineering Block, Lab 3",
+    "category": "AI / ML",
+    "speaker": "Alice Johnson",
+    "capacity": 40,
+    "registeredCount": 40
+  },
+  {
+    "id": "event-004",
+    "title": "Cloud Native Architecture",
+    "description": "Understand how to design, deploy, and scale applications in the cloud using containers and Kubernetes.",
+    "date": "2026-09-25",
+    "time": "11:00",
+    "venue": "Main Auditorium",
+    "category": "Cloud",
+    "speaker": "Robert Williams",
+    "capacity": 200,
+    "registeredCount": 120
+  },
+  {
+    "id": "event-005",
+    "title": "Cybersecurity Best Practices",
+    "description": "Learn how to secure your applications against common vulnerabilities and threats.",
+    "date": "2026-09-28",
+    "time": "13:00",
+    "venue": "Virtual",
+    "category": "Cybersecurity",
+    "speaker": "Emily Davis",
+    "capacity": 150,
+    "registeredCount": 90
+  },
+  {
+    "id": "event-006",
+    "title": "Flutter App Development",
+    "description": "Build cross-platform mobile applications using Flutter and Dart.",
+    "date": "2026-10-02",
+    "time": "16:00",
+    "venue": "Innovation Hub",
+    "category": "App Development",
+    "speaker": "Michael Brown",
+    "capacity": 60,
+    "registeredCount": 15
+  },
+  {
+    "id": "event-007",
+    "title": "DevOps CI/CD Pipelines",
+    "description": "Master continuous integration and continuous deployment for automated software delivery.",
+    "date": "2026-10-05",
+    "time": "10:30",
+    "venue": "Computer Science Building, Room 204",
+    "category": "DevOps",
+    "speaker": "Sarah Miller",
+    "capacity": 45,
+    "registeredCount": 30
+  },
+  {
+    "id": "event-008",
+    "title": "Introduction to Web3 and Blockchain",
+    "description": "An introductory session on decentralized technologies, smart contracts, and Web3 development.",
+    "date": "2026-10-10",
+    "time": "14:00",
+    "venue": "Virtual",
+    "category": "Blockchain",
+    "speaker": "David Wilson",
+    "capacity": 300,
+    "registeredCount": 250
+  }
+]
