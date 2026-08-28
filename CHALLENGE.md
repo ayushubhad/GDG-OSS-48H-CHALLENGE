@@ -1,173 +1,176 @@
-# GDG OSS — 48 Hour Contributor Challenge
+# GDG on Campus — OSS Core Team 48-Hour Challenge
 
-This challenge is designed to evaluate how candidates understand an existing codebase, learn unfamiliar tools, collaborate using Git/GitHub, improve software, automate workflows, deploy an application, handle security responsibly, and communicate their work.
+You have already completed the OSS Core interview. This challenge is the practical evaluation stage. 
 
-## Challenge Objective
+You are not being asked to build a project from scratch. You are being given an existing codebase. Your task is to understand it, improve it, prepare it for delivery, automate the workflow, deploy it, and submit your work through a proper GitHub Pull Request.
 
-Candidates must take the existing GDG EventHub application and improve, containerize, automate, and deploy it while following a proper Open Source contribution workflow.
+**Time Limit: 48 Hours**
+*(The exact submission deadline will be communicated separately by the GDG OSS Lead.)*
 
-The objective is not to build a new application from scratch. Candidates are expected to work on the existing repository.
+## Starting Repository
 
-## Time Limit
+1. **Fork** the repository.
+2. **Clone** your fork locally.
+3. **Create a feature branch** (e.g., `feat/challenge-submission`).
+4. **Work only on that branch**.
+5. **Push changes to your fork**.
+6. **Create a Pull Request** to the original repository.
 
-**Time limit: 48 hours**
+**Explicitly:** Do not commit directly to `main`.
 
-The exact submission deadline will be communicated separately by the GDG OSS Lead.
+---
 
-## Required Workflow
-
-Candidates must follow:
-
-Fork
-↓
-Clone
-↓
-Create Feature Branch
-↓
-Understand Existing Project
-↓
-Make Improvements
-↓
-Commit
-↓
-Push
-↓
-Create Pull Request
-↓
-Deploy
-↓
-Document
-
-### Do NOT work directly on `main`.
-Candidates should use a feature branch.
-
-## Tasks
-
-### Task 1 — Understand the Existing Project
-Before making changes, candidates must inspect the repository. They should understand:
-* Frontend architecture
-* Backend architecture
+## Task 1 — Understand the Application
+Before making any changes, you must first understand the existing application:
+* React frontend
+* Express backend
 * API flow
-* Existing tests
-* Environment configuration
-* Existing documentation
+* local JSON data
+* existing tests
+* environment variables
 
-> In the final Pull Request, include a short explanation of the existing application architecture as understood by the candidate.
+**Requirement:** In the final PR, you must briefly explain the architecture you understood.
 
-### Task 2 — UI/UX Improvement
-**At least 2 meaningful UI/UX improvements.**
-Acceptable areas include: Responsive/mobile experience, Accessibility, Navigation, Search experience, Event filtering, Event cards, Registration experience, Form validation feedback, Loading states, Empty states, Error states, Visual hierarchy, Overall usability.
+---
 
-Cosmetic-only changes such as changing one color or font are not sufficient by themselves. The candidate should explain:
-1. What problem they identified.
-2. What they changed.
-3. Why the change improves the user experience.
+## Task 2 — UI/UX Improvement
+**Requirement:** Implement at least 2 meaningful UI/UX improvements to the existing application.
 
-### Task 3 — Backend Improvement
-**At least 1 meaningful backend improvement.**
-Areas include: API validation, Registration handling, Duplicate registration handling, Error handling, API response improvements, Filtering/pagination, Security improvements, Performance improvements, Additional meaningful backend tests.
+Acceptable areas include:
+* responsive design
+* accessibility
+* navigation
+* search experience
+* filtering experience
+* event-card design
+* registration flow
+* form feedback
+* loading states
+* error states
+* empty states
+* visual hierarchy
+* usability
 
-The candidate must document: Problem identified, Approach taken, Result, Tests added/updated.
+*Clarification:* Changing only a color, font, or isolated visual property is not sufficient as a meaningful improvement by itself. 
 
-### Task 4 — Docker
-Candidates must containerize the application. Requirements:
-* Create an appropriate Docker configuration.
-* Build the image successfully.
-* Run the application from the container.
-* Verify the application works.
+You should explain:
+* What problem you identified.
+* What you changed.
+* Why it improves the user experience.
 
-### Task 5 — CI Using GitHub Actions
-Candidates must implement a CI workflow using GitHub Actions. At minimum, the CI workflow should:
-Trigger ↓ Install dependencies ↓ Run tests ↓ Build / validate
+---
+
+## Task 3 — Backend Improvement
+**Requirement:** Implement at least 1 meaningful backend improvement.
+
+Suggested areas:
+* input validation
+* duplicate registration handling
+* API improvements
+* error handling
+* security improvements
+* filtering/pagination
+* performance
+* backend testing
+
+*Clarification:* You may choose the backend problem you want to address. You must explain the problem, implementation and testing in the PR.
+
+---
+
+## Task 4 — Docker
+**Requirement:** Containerize the application.
+
+You must:
+* create appropriate Docker configuration
+* build the image
+* run the container
+* verify the application works
+
+Optional advanced improvements may include: multi-stage builds, optimized images, health checks, or Docker Compose.
+
+---
+
+## Task 5 — CI
+**Requirement:** Implement a GitHub Actions CI workflow.
+
+Minimum expected workflow:
+`Trigger ↓ Install dependencies ↓ Run tests ↓ Build / validate`
 
 The workflow should fail when required validation fails.
 
-### Task 6 — CD / Deployment
-Candidates must create an automated deployment workflow:
-Code ↓ CI ↓ Validation / Build ↓ Deployment ↓ Live Application
+Optional improvements: linting, dependency caching, Docker build validation, security scanning, separated frontend/backend jobs.
 
-### Task 7 — Public Deployment
-Candidates must provide a working public URL that preserves the required functionality. The deployment URL must be included in the Pull Request or README/deployment documentation.
+---
 
-### Task 8 — Security
-Candidates must ensure:
-* No API keys, passwords, private keys, or cloud credentials are committed.
-* `.env` files containing secrets are not committed.
-* Deployment secrets are managed appropriately.
+## Task 6 — CD
+**Requirement:** Implement automated deployment.
 
-> If a credential is accidentally exposed, they are expected to revoke/rotate it immediately and follow appropriate remediation practices.
+The general workflow should become:
+`Code ↓ CI ↓ Tests / Build ↓ Deployment ↓ Live Application`
 
-### Task 9 — Testing
-Candidates must preserve the existing tests. Add/update tests for the functionality changed.
-> Existing tests must continue to pass unless there is a justified change in expected behaviour.
-Document tests executed, new tests added, and any meaningful edge cases tested.
+You may choose an approved deployment platform. The challenge should not require Kubernetes. Kubernetes may be used as an advanced enhancement, but it is optional.
 
-### Task 10 — Documentation
-Update documentation where necessary. The Pull Request should clearly explain UI/backend changes, Docker setup, CI/CD workflows, Environment variables, Deployment URL, and Testing performed.
+---
 
-## AI Usage
+## Task 7 — Public Deployment
+**Requirement:** Provide a publicly accessible deployment URL.
 
-AI tools are **allowed**. Candidates may use tools such as ChatGPT, Gemini, Claude, GitHub Copilot, etc.
+The evaluator should be able to open the URL and verify that:
+* the frontend loads
+* the application functions
+* API communication works
+* important functionality remains operational
 
-> Candidates are fully responsible for understanding, validating, testing, securing and explaining everything they submit.
+The deployed URL must be included in the Pull Request.
 
-Blindly submitting generated code that the candidate cannot explain may negatively affect evaluation. Candidates should disclose meaningful AI assistance in their Pull Request.
+---
 
-Example:
-```text
-AI Usage:
-Used AI assistance to understand GitHub Actions configuration
-and troubleshoot Docker build issues. All generated changes were
-reviewed, tested and adapted manually.
-```
+## Task 8 — Security
+**Security is mandatory.** 
 
-## Pull Request Requirements
-The candidate MUST create a Pull Request to the original repository. Use the existing PR template. Do not ask candidates to directly push to the original repository.
+You must not commit passwords, API keys, tokens, cloud credentials, private keys, or sensitive personal information. Deployment credentials must be handled through appropriate secret/environment mechanisms.
 
-## Commit Requirements
-> Use meaningful commits that represent logical units of work.
+Accidentally exposing a credential and merely deleting the file is not sufficient. Candidates are expected to revoke/rotate exposed credentials and follow appropriate remediation practices. Refer to [SECURITY.md](SECURITY.md).
 
-Examples:
-```text
-feat: improve event filtering UX
-fix: validate duplicate registration
-build: add Docker configuration
-ci: add automated test workflow
-ci: configure deployment pipeline
-docs: update deployment instructions
-```
+---
 
-## What Candidates Are NOT Required To Do
-Candidates are NOT required to:
-* Rebuild the application from scratch.
-* Replace the entire frontend.
-* Introduce a database.
-* Use Kubernetes.
-* Use Terraform.
-* Use a specific cloud provider unless specified separately.
-* Use a specific frontend framework.
-* Use a specific Docker strategy.
+## Task 9 — Testing
+You must preserve the existing tests. You must test your changes and add/update tests where appropriate.
 
-## Submission Checklist
-* [ ] Repository forked
-* [ ] Feature branch used
-* [ ] Existing application understood
-* [ ] At least 2 meaningful UI/UX improvements completed
-* [ ] At least 1 meaningful backend improvement completed
-* [ ] Docker setup works
-* [ ] CI workflow works
-* [ ] CD/deployment works
-* [ ] Public deployment URL provided
-* [ ] Existing tests pass
-* [ ] Relevant tests added/updated
-* [ ] No secrets committed
-* [ ] README/documentation updated
-* [ ] Pull Request created
-* [ ] PR template completed
-* [ ] AI usage disclosed
+**Requirement:** Existing functionality and tests should not be broken without a justified reason.
 
-## Evaluation Criteria
-Candidate will be evaluated on:
-Git/GitHub workflow, Understanding of existing code, UI/UX improvement, Backend improvement, Docker/containerization, CI implementation, CD/deployment, Security practices, Testing, Documentation, Problem-solving, Ability to explain decisions, Ownership and initiative.
+The PR should explain:
+* tests run
+* tests added/updated
+* edge cases considered
 
-> **You are not being evaluated on how many technologies you already know. You are being evaluated on how effectively you can understand an unfamiliar project, learn what you need, solve problems, use available tools responsibly, and contribute a working improvement.**
+---
+
+## Task 10 — Documentation
+You must update documentation relevant to your work.
+
+The PR should document:
+* UI improvements
+* backend improvement
+* Docker
+* CI/CD
+* deployment
+* environment variables
+* testing
+* live deployment URL
+
+Documentation should be concise and useful.
+
+---
+
+## AI Usage Policy
+AI tools are allowed for this challenge. 
+
+Examples: ChatGPT, Gemini, Claude, GitHub Copilot, other AI-assisted development tools.
+
+AI usage itself is not penalized. But: **Candidates are responsible for understanding, testing, securing and explaining everything they submit.**
+
+Blindly submitting AI-generated code that the candidate cannot explain may negatively affect evaluation. Require candidates to disclose meaningful AI assistance in the PR.
+
+**Example:**
+> AI Usage: Used ChatGPT to understand GitHub Actions and troubleshoot Docker configuration. Reviewed, adapted and tested the generated suggestions manually.

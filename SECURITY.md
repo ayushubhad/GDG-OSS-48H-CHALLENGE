@@ -1,54 +1,34 @@
 # Security Policy
 
-Security is a primary concern for the GDG EventHub platform. We take vulnerabilities and the exposure of sensitive data seriously.
+Security is an important part of the GDG on Campus OSS Core Team selection challenge.
 
-## Supported Versions
+## Best Practices for Candidates
 
-Currently, we only support the `main` branch of this repository for security updates and patches. 
-
-## Best Practices for Contributors
-
-When contributing to this repository—especially during the 48-Hour Challenge—you **must** adhere to the following security best practices. Violating these practices (such as leaking secrets) is considered a critical failure.
+When working on this repository, you **must** adhere to the following security best practices. 
 
 ### 1. Never Commit Secrets
 Under no circumstances should you commit files containing sensitive information. This includes, but is not limited to:
-* `.env`, `.env.local`, `.env.production` files
-* Cloud provider credentials (e.g., `AWS_ACCESS_KEY_ID`, GCP JSON keys, Azure connection strings)
-* Database URIs (e.g., `MONGO_URI`, PostgreSQL connection strings)
-* API Keys (e.g., SendGrid, Stripe, Firebase)
-* Private keys, SSH keys, or passwords.
+* `.env` files
+* Cloud provider credentials
+* API Keys 
+* Private keys, tokens, or passwords
 
-**What to do instead:** Use environment variables and provide a `.env.example` template with dummy values so other developers know what variables are required.
+**What to do instead:** Use environment variables and appropriate deployment secret mechanisms.
 
-### 2. Dependency Auditing
-Before adding new `npm` packages, consider their security footprint. 
-* Run `npm audit` locally to check for known vulnerabilities in your dependencies.
-* Do not install obscure or unmaintained packages.
-
-### 3. Safe API Responses
+### 2. Safe API Responses
 When making backend improvements:
-* **Never leak stack traces** or internal server errors directly to the client in production.
-* Sanitize user input to prevent XSS (Cross-Site Scripting) or injection attacks.
-* Do not expose internal server paths in error messages.
+* **Never leak stack traces** or internal server errors directly to the client.
+* Sanitize user input to prevent injection attacks.
 
-### 4. Use Mock Data
-Do not commit real personal, sensitive, or user information into the repository. The `data/events.json` file must only contain synthetic, generated, or publicly safe dummy data.
+### 3. Use Mock Data
+Do not commit real personal, sensitive, or user information into the repository. 
 
 ---
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within this project, please report it responsibly. 
-
-**DO NOT create a public GitHub issue for security vulnerabilities.**
-
-Instead:
-1. Contact the repository maintainers directly via email or private channels.
-2. Or use the **GitHub Security Advisory** feature (if enabled on the repository) to privately report the issue.
-
-We will review all reports and respond as quickly as possible to coordinate a fix before public disclosure.
+If you discover a security vulnerability within this project during your challenge, please report it privately to the evaluator or repository maintainers. Do not create a public issue.
 
 ## Remediation Policy
-If a credential (like an API key or password) is accidentally exposed in a pull request:
-1. **Rotate/Revoke immediately:** The exposed key must be immediately revoked at the source provider.
-2. Do not just "delete the file" in a new commit, as the secret remains in the Git history. Revocation is the only safe remediation.
+
+Accidentally exposing a credential and merely deleting the file is not sufficient. Candidates are expected to **revoke/rotate exposed credentials immediately** at the source provider and follow appropriate remediation practices.
