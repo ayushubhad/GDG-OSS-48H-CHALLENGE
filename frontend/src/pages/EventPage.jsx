@@ -13,21 +13,20 @@ const EventPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fetchEvent = async (showLoading = true) => {
+    try {
+      if (showLoading) setLoading(true);
+      setError(null);
+      const data = await getEventById(id);
+      setEvent(data);
+    } catch (err) {
+      setError(err.response?.status === 404 ? 'Event not found' : 'Failed to load event details');
+    } finally {
+      if (showLoading) setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await getEventById(id);
-        setEvent(data);
-      } catch (err) {
-        setError(err.response?.status === 404 ? 'Event not found' : 'Failed to load event details');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEvent();
+    fetchEvent(true);
   }, [id]);
 
   if (loading) return <LoadingState />;
@@ -125,7 +124,7 @@ const EventPage = () => {
                 <RegistrationForm
                   eventId={event.id}
                   onSuccess={() => {
-                    // Could optionally refresh event data here to update registeredCount
+                    fetchEvent(false);
                   }}
                 />
               </>
