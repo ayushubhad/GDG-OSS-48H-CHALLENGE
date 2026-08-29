@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
 import EventCard from '../components/EventCard';
 import SearchBar from '../components/SearchBar';
@@ -21,6 +22,7 @@ const CATEGORIES = [
 ];
 
 const Home = () => {
+  const location = useLocation();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,7 +33,10 @@ const Home = () => {
     try {
       setLoading(true);
       setError(null);
-      const data = await getEvents();
+      const [data] = await Promise.all([
+        getEvents(),
+        new Promise((resolve) => setTimeout(resolve, 1000)),
+      ]);
       setEvents(data);
     } catch (err) {
       setError(err.message || 'Failed to fetch events');
@@ -40,9 +45,22 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
+   useEffect(() => {
+    if (location.state?.resetToInitial) {
+      setSearchTerm('');
+      setSelectedCategory('All');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     fetchEvents();
-  }, []);
+    if (location.state?.scrollToEvents) {
+      setTimeout(() => {
+        const eventsSection = document.getElementById('events');
+        if (eventsSection) {
+          eventsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location.state?.refresh]);
 
   const filteredEvents = events.filter((event) => {
     const matchesSearch =

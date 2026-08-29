@@ -41,48 +41,63 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
 
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
-      <h3>Register for Event</h3>
+      <h3 className="form-title">Register for Event</h3>
 
       {status === 'error' && <div className="error-message">{errorMessage}</div>}
 
-      <div className="form-group">
-        <label htmlFor="name">Full Name</label>
+      <div className="input-group">
         <input
           type="text"
           id="name"
           name="name"
+          placeholder=" "
           value={formData.name}
           onChange={handleChange}
+          autoComplete="off"
+          className="form-input"
           required
         />
+        <label htmlFor="name" className="user-label">
+          Full Name
+        </label>
       </div>
 
-      <div className="form-group">
-        <label htmlFor="email">Email</label>
+      <div className="input-group">
         <input
           type="email"
           id="email"
           name="email"
+          placeholder=" "
           value={formData.email}
           onChange={handleChange}
+          autoComplete="off"
+          className="form-input"
           required
         />
+        <label htmlFor="email" className="user-label">
+          Email Address
+        </label>
       </div>
 
-      <div className="form-group">
-        <label htmlFor="college">College / Organization</label>
+      <div className="input-group">
         <input
           type="text"
           id="college"
           name="college"
+          placeholder=" "
           value={formData.college}
           onChange={handleChange}
+          autoComplete="off"
+          className="form-input"
           required
         />
+        <label htmlFor="college" className="user-label">
+          College / Organization
+        </label>
       </div>
 
       <button type="submit" className="btn-primary submit-btn" disabled={status === 'loading'}>
-        {status === 'loading' ? 'Registering...' : 'Register'}
+        {status === 'loading' ? 'Registering...' : 'Register Now'}
       </button>
     </form>
   );

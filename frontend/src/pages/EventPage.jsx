@@ -17,7 +17,10 @@ const EventPage = () => {
     try {
       if (showLoading) setLoading(true);
       setError(null);
-      const data = await getEventById(id);
+      const [data] = await Promise.all([
+        getEventById(id),
+        showLoading ? new Promise((resolve) => setTimeout(resolve, 1000)) : Promise.resolve(),
+      ]);
       setEvent(data);
     } catch (err) {
       setError(err.response?.status === 404 ? 'Event not found' : 'Failed to load event details');
