@@ -32,7 +32,7 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
 
   if (status === 'success') {
     return (
-      <div className="registration-success">
+      <div className="registration-success" role="status" aria-live="polite">
         <h3>Registration Successful!</h3>
         <p>Thank you for registering. We look forward to seeing you there.</p>
       </div>
@@ -40,10 +40,25 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
   }
 
   return (
-    <form className="registration-form" onSubmit={handleSubmit}>
-      <h3 className="form-title">Register for Event</h3>
+    <form
+      className="registration-form"
+      onSubmit={handleSubmit}
+      aria-labelledby="registration-form-title"
+    >
+      <h3 id="registration-form-title" className="form-title">
+        Register for Event
+      </h3>
 
-      {status === 'error' && <div className="error-message">{errorMessage}</div>}
+      {status === 'error' && (
+        <div
+          id="form-error"
+          className="error-message"
+          role="alert"
+          aria-live="assertive"
+        >
+          {errorMessage}
+        </div>
+      )}
 
       <div className="input-group">
         <input
@@ -53,9 +68,12 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
           placeholder=" "
           value={formData.name}
           onChange={handleChange}
-          autoComplete="off"
+          autoComplete="name"
           className="form-input"
           required
+          aria-required="true"
+          aria-invalid={status === 'error' ? 'true' : 'false'}
+          aria-describedby={status === 'error' ? 'form-error' : undefined}
         />
         <label htmlFor="name" className="user-label">
           Full Name
@@ -70,9 +88,12 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
           placeholder=" "
           value={formData.email}
           onChange={handleChange}
-          autoComplete="off"
+          autoComplete="email"
           className="form-input"
           required
+          aria-required="true"
+          aria-invalid={status === 'error' ? 'true' : 'false'}
+          aria-describedby={status === 'error' ? 'form-error' : undefined}
         />
         <label htmlFor="email" className="user-label">
           Email Address
@@ -87,16 +108,24 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
           placeholder=" "
           value={formData.college}
           onChange={handleChange}
-          autoComplete="off"
+          autoComplete="organization"
           className="form-input"
           required
+          aria-required="true"
+          aria-invalid={status === 'error' ? 'true' : 'false'}
+          aria-describedby={status === 'error' ? 'form-error' : undefined}
         />
         <label htmlFor="college" className="user-label">
           College / Organization
         </label>
       </div>
 
-      <button type="submit" className="btn-primary submit-btn" disabled={status === 'loading'}>
+      <button
+        type="submit"
+        className="btn-primary submit-btn"
+        disabled={status === 'loading'}
+        aria-busy={status === 'loading'}
+      >
         {status === 'loading' ? 'Registering...' : 'Register Now'}
       </button>
     </form>
