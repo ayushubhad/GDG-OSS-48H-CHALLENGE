@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import App from '../App';
 import * as api from '../services/api';
 
@@ -79,6 +78,17 @@ describe('GDG EventHub Frontend', () => {
 
       expect(screen.queryByText('React Workshop')).not.toBeInTheDocument();
       expect(screen.getByText('Python ML')).toBeInTheDocument();
+    });
+
+    it('renders error state when fetching events fails', async () => {
+      api.getEvents.mockRejectedValue(new Error('Failed to fetch events'));
+      render(<App />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Oops! Something went wrong.')).toBeInTheDocument();
+        expect(screen.getByText('Failed to fetch events')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /Try Again/i })).toBeInTheDocument();
+      });
     });
   });
 });

@@ -13,13 +13,14 @@ const EventPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const LOADER_DELAY = import.meta.env.MODE === 'test' ? 0 : 1000;
   const fetchEvent = async (showLoading = true) => {
     try {
       if (showLoading) setLoading(true);
       setError(null);
       const [data] = await Promise.all([
         getEventById(id),
-        showLoading ? new Promise((resolve) => setTimeout(resolve, 1000)) : Promise.resolve(),
+        showLoading ? new Promise((resolve) => setTimeout(resolve, LOADER_DELAY)) : Promise.resolve(),
       ]);
       setEvent(data);
     } catch (err) {

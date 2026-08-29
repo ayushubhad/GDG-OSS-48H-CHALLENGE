@@ -29,14 +29,16 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-
+ 
+ 
+   const LOADER_DELAY = import.meta.env.MODE === 'test' ? 0 : 1000;
   const fetchEvents = async () => {
     try {
       setLoading(true);
       setError(null);
       const [data] = await Promise.all([
         getEvents(),
-        new Promise((resolve) => setTimeout(resolve, 1000)),
+        new Promise((resolve) => setTimeout(resolve, LOADER_DELAY)),
       ]);
       setEvents(data);
     } catch (err) {
