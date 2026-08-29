@@ -1,11 +1,14 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const eventRoutes = require('./routes/events');
 const registrationRoutes = require('./routes/registrations');
 
-// Load environment variables from .env file
+// Load environment variables from .env file (supports running from root, backend, or backend/src)
 dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const app = express();
 
@@ -27,7 +30,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal Server Error' });
 });
 
-// Start server (only if not in test mode)
+ 
 if (process.env.NODE_ENV !== 'test') {
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
