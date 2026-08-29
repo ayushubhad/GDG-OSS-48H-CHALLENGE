@@ -1,3 +1,4 @@
+import { SearchX } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
@@ -98,20 +99,31 @@ const Home = () => {
 
         {!loading && !error && (
           <>
-            {filteredEvents.length === 0 ? (
-              <div className="no-results">
+                        {filteredEvents.length === 0 ? (
+              <div className="no-results" role="status" aria-live="polite">
+                <div className="no-results-icon">
+                  <SearchX size={40} />
+                </div>
                 <h3>No events found</h3>
-                <p>Try adjusting your search or filters.</p>
-                <button
-                  className="btn-secondary"
-                  onClick={() => {
-                    setSearchTerm('');
-                    setSelectedCategory('All');
-                  }}
-                  style={{ marginTop: '1rem' }}
-                >
-                  Clear Filters
-                </button>
+                <p>
+                  {searchTerm
+                    ? `No events match "${searchTerm}". Try checking for spelling or searching for a different topic.`
+                    : selectedCategory !== 'All'
+                    ? `No upcoming events in the "${selectedCategory}" category.`
+                    : 'There are currently no events available.'}
+                </p>
+                {(searchTerm || selectedCategory !== 'All') && (
+                  <button
+                    type="button"
+                    className="btn-primary reset-filter-btn"
+                    onClick={() => {
+                      setSearchTerm('');
+                      setSelectedCategory('All');
+                    }}
+                  >
+                    Clear All Filters
+                  </button>
+                )}
               </div>
             ) : (
               <div className="events-grid">
