@@ -19,6 +19,10 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'Invalid email format' });
   }
 
+  const normalizedEmail = email.trim().toLowerCase();
+  const trimmedName = name.trim();
+  const trimmedCollege = college.trim();
+
   try {
     // 1. Check if the event exists and is not full
     const { data: event, error: eventError } = await supabase
@@ -30,20 +34,30 @@ router.post('/', async (req, res) => {
     if (eventError || !event) {
       return res.status(404).json({ error: 'Event not found' });
     }
+    // Check for existing duplicate registration
+    const { data: existingReg } = await supabase
+      .from('registrations')
+      .select('id')
+      .eq('eventId', eventId)
+      .eq('email', normalizedEmail)
+      .maybeSingle();
+    if (existingReg) {
+      return res.status(409).json({ error: 'You are already registered for this event' });
+    }
 
     if (event.registeredCount >= event.capacity) {
       return res.status(400).json({ error: 'Event is already fully booked' });
     }
 
-    // 2. Prepare registration record
-    const newRegistration = {
+     const newRegistration = {
       id: `reg-${Date.now()}`,
-      name,
-      email,
-      college,
+      name: trimmedName,
+      email: normalizedEmail,
+      college: trimmedCollege,
       eventId,
       registeredAt: new Date().toISOString(),
     };
+
 
     // 3. Insert registration record into Supabase
     const { data, error: insertError } = await supabase
@@ -53,6 +67,9 @@ router.post('/', async (req, res) => {
       .single();
 
     if (insertError) {
+      if (insertError.code === '23505') {
+        return res.status(409).json({ error: 'You are already registered for this event' });
+      }
       return res.status(500).json({ error: insertError.message });
     }
 
