@@ -4,6 +4,11 @@ This repository contains the GDG EventHub application used for the **GDG on Camp
 Candidates who have completed the OSS Core interview are provided this repository as the starting point for a time-bound practical challenge. The purpose of the challenge is to evaluate how effectively a candidate can understand an existing codebase, learn unfamiliar technologies, improve software, work with Git/GitHub, implement engineering workflows, deploy an application, and communicate their work.
 > **Important:** This repository is provided only to candidates participating in the GDG on Campus OSS Core Team selection process. 
 ---
+## 🌐 Live Deployments
+* **Public Frontend Application:** [https://gdg-oss-48-h-challenge-eosin.vercel.app](https://gdg-oss-48-h-challenge-eosin.vercel.app)
+* **Live Backend API (Health Check):** [https://gdg-eventhub-backend.onrender.com/health](https://gdg-eventhub-backend.onrender.com/health)
+* **Live Backend API (Events Endpoint):** [https://gdg-eventhub-backend.onrender.com/api/events](https://gdg-eventhub-backend.onrender.com/api/events)
+---
 ## About the Application
 The GDG EventHub application is designed for campus technical events. Its main functionalities include:
 * Event discovery
@@ -33,6 +38,12 @@ The GDG EventHub application is designed for campus technical events. Its main f
 * Supabase PostgreSQL Database (`@supabase/supabase-js`)
 * Helmet (Security Headers)
 * Express Rate Limit (API Throttling)
+**DevOps & Deployment:**
+* Docker & Docker Compose (Multi-stage builds)
+* Nginx (Static asset delivery & SPA routing)
+* GitHub Actions (Continuous Integration)
+* Vercel (Frontend Continuous Deployment)
+* Render (Backend API Hosting)
 **Testing:**
 * Vitest
 * React Testing Library
@@ -57,10 +68,20 @@ The application consists of a React Single Page Application (SPA) communicating 
 
 ## Local Setup
 
+### 0. Quickstart with Docker (Recommended)
+Run the entire application stack (frontend + backend) with a single command:
+```bash
+docker compose up --build
+```
+* **Frontend:** `http://localhost:5173`
+* **Backend API:** `http://localhost:5000`
+
+---
+
 ### 1. Clone
 Clone the repository to your local machine:
 ```bash
-git clone https://github.com/Aryasurya12/GDG-OSS-48H-CHALLENGE.git
+git clone https://github.com/ayushubhad/GDG-OSS-48H-CHALLENGE.git
 cd GDG-OSS-48H-CHALLENGE
 ```
 
@@ -108,17 +129,78 @@ cd backend
 npm test
 ```
 
----
-
 ## API Documentation
 
-### `GET /health`
-Check API health status.
-* **Response `200 OK`:** `{ "status": "ok" }`
+Base URL: `http://localhost:5000` (or `https://gdg-eventhub-backend.onrender.com`)
 
-### `GET /api/events`
+---
+
+### 1. Health Check
+
+#### `GET /health`
+Check API health status.
+
+* **Response `200 OK`:**
+  ```json
+  {
+    "status": "ok"
+  }
+  ```
+
+---
+
+### 2. Events Endpoints
+
+#### `GET /api/events`
 Retrieve all upcoming events.
-* **Response `200 OK`:** `[
+
+* **Response `200 OK`:**
+  ```json
+  [
+    {
+      "id": "event-001",
+      "title": "Introduction to Open Source",
+      "description": "Learn the basics of open source contribution, Git, and GitHub in this beginner-friendly workshop.",
+      "date": "2026-09-15",
+      "time": "14:00",
+      "venue": "Computer Science Building, Room 101",
+      "category": "Open Source",
+      "speaker": "Jane Doe",
+      "capacity": 50,
+      "registeredCount": 20
+    },
+    {
+      "id": "event-002",
+      "title": "Building React Applications",
+      "description": "A deep dive into modern React development including hooks, state management, and routing.",
+      "date": "2026-09-18",
+      "time": "10:00",
+      "venue": "Virtual",
+      "category": "Web Development",
+      "speaker": "John Smith",
+      "capacity": 100,
+      "registeredCount": 85
+    }
+  ]
+  ```
+
+* **Response `500 Internal Server Error`:**
+  ```json
+  {
+    "error": "Internal Server Error"
+  }
+  ```
+
+---
+
+#### `GET /api/events/:id`
+Retrieve detailed information for a specific event by ID.
+
+* **Path Parameters:**
+  * `id` (string, required) — Unique event identifier (e.g. `event-001`).
+
+* **Response `200 OK`:**
+  ```json
   {
     "id": "event-001",
     "title": "Introduction to Open Source",
@@ -130,86 +212,108 @@ Retrieve all upcoming events.
     "speaker": "Jane Doe",
     "capacity": 50,
     "registeredCount": 20
-  },
-  {
-    "id": "event-002",
-    "title": "Building React Applications",
-    "description": "A deep dive into modern React development including hooks, state management, and routing.",
-    "date": "2026-09-18",
-    "time": "10:00",
-    "venue": "Virtual",
-    "category": "Web Development",
-    "speaker": "John Smith",
-    "capacity": 100,
-    "registeredCount": 85
   }
-]`
+  ```
 
-* **Response `500 Internal Server Error`:** `{ "error": "Internal Server Error" }`
+* **Response `404 Not Found`:**
+  ```json
+  {
+    "error": "Event not found"
+  }
+  ```
 
-### `GET /api/events/:id`
-Retrieve a specific event by ID.
-* **Path Parameters:
-id (string, required) — Unique event identifier (e.g. event-001).
-* **Response `200 OK`:** `{
-  "id": "event-001",
-  "title": "Introduction to Open Source",
-  "description": "Learn the basics of open source contribution, Git, and GitHub in this beginner-friendly workshop.",
-  "date": "2026-09-15",
-  "time": "14:00",
-  "venue": "Computer Science Building, Room 101",
-  "category": "Open Source",
-  "speaker": "Jane Doe",
-  "capacity": 50,
-  "registeredCount": 20
-}`
+---
 
-* **Response `404 Not Found`:** `{ "error": "Event not found" }`
+### 3. Registration Endpoint
 
+#### `POST /api/register`
+Register an attendee for a specific event. Automatically validates input data, checks capacity, prevents duplicate registrations, and increments the event's `registeredCount`.
 
-### `POST /api/register`
-Register an attendee for a specific event. Automatically validates input data, checks capacity, prevents duplicate registrations, and increments the event's registeredCount.
-Rate Limit: 10 registrations per 15 minutes per IP
-Headers: Content-Type: application/json
+* **Rate Limit:** 10 registrations per 15 minutes per IP
+* **Headers:** `Content-Type: application/json`
 
-* **Request Body:** `{
-  "name": "Jane Doe",
-  "email": "jane.doe@example.com",
-  "college": "GDG Campus",
-  "eventId": "event-001"
-}`
-* **Response `201 Created`:** `{
-  "message": "Registration successful",
-  "registration": {
-    "id": "reg-1788025863011",
+* **Request Body:**
+  ```json
+  {
     "name": "Jane Doe",
     "email": "jane.doe@example.com",
     "college": "GDG Campus",
-    "eventId": "event-001",
-    "registeredAt": "2026-08-30T04:15:00.000Z"
+    "eventId": "event-001"
   }
-} `
-* **Response `400 Bad Request`:** `{ "error": "error": "Missing required fields: name, email, college, eventId" }`
-* **Response `400 Bad Request`:** `{ "Invalid email format" }
-* **Response `400 Bad Request`:** `{ "Event is already fully booked" }
+  ```
 
-* **Response `404 Not Request`:** `{ "error": "Event not found" }`
+* **Response `201 Created`:**
+  ```json
+  {
+    "message": "Registration successful",
+    "registration": {
+      "id": "reg-1788025863011",
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "college": "GDG Campus",
+      "eventId": "event-001",
+      "registeredAt": "2026-08-30T04:15:00.000Z"
+    }
+  }
+  ```
 
-* **Response `409  Conflict`:** `{ "error": "You are already registered for this event" }`
+* **Response `400 Bad Request` — Missing Fields:**
+  ```json
+  {
+    "error": "Missing required fields: name, email, college, eventId"
+  }
+  ```
 
-* **Response `429  Too many Requests`:** `{ "error":"Too many registration requests from this IP, please try again after 15 minutes"}`
+* **Response `400 Bad Request` — Invalid Email:**
+  ```json
+  {
+    "error": "Invalid email format"
+  }
+  ```
+
+* **Response `400 Bad Request` — Event Fully Booked:**
+  ```json
+  {
+    "error": "Event is already fully booked"
+  }
+  ```
+
+* **Response `404 Not Found` — Event Not Found:**
+  ```json
+  {
+    "error": "Event not found"
+  }
+  ```
+
+* **Response `409 Conflict` — Duplicate Registration:**
+  ```json
+  {
+    "error": "You are already registered for this event"
+  }
+  ```
+
+* **Response `429 Too Many Requests` — Rate Limit Exceeded:**
+  ```json
+  {
+    "error": "Too many registration requests from this IP, please try again after 15 minutes"
+  }
+  ```
+
+* **Response `500 Internal Server Error`:**
+  ```json
+  {
+    "error": "Internal Server Error"
+  }
+  ```
 
 ---
 
 ## Security
 
-*No Committed Secrets: Environment variables (.env) are strictly excluded from version control via .gitignore.
-
-*Security Headers: Express application is protected with helmet HTTP security headers against common web vulnerabilities.
-
-*Rate Limiting: Public API routes are throttled using express-rate-limit to prevent brute force and denial of service.
-
-*Data Integrity: Database queries and constraints prevent SQL injection and duplicate record creation. 
+* **No Committed Secrets:** Environment variables (`.env`) are strictly excluded from version control via `.gitignore` and `.dockerignore`.
+* **Security Headers:** Express application is protected with `helmet` HTTP security headers against common web vulnerabilities.
+* **Rate Limiting:** Public API routes are throttled using `express-rate-limit` to prevent brute force and denial of service.
+* **Data Integrity:** Database queries and constraints prevent SQL injection and duplicate record creation.
 
 For full security guidelines for this challenge, see: [SECURITY.md](SECURITY.md)
 
