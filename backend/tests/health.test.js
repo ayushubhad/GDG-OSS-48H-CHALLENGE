@@ -7,7 +7,7 @@ describe('GET /health', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('status', 'ok');
   });
-   it('should include security headers from helmet', async () => {
+  it('should include security headers from helmet', async () => {
     const res = await request(app).get('/health');
     expect(res.headers).toHaveProperty('x-dns-prefetch-control');
     expect(res.headers).toHaveProperty('x-frame-options');

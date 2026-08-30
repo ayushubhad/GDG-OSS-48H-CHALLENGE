@@ -29,9 +29,8 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
- 
- 
-   const LOADER_DELAY = import.meta.env.MODE === 'test' ? 0 : 1000;
+
+  const LOADER_DELAY = import.meta.env.MODE === 'test' ? 0 : 1000;
   const fetchEvents = async () => {
     try {
       setLoading(true);
@@ -48,7 +47,7 @@ const Home = () => {
     }
   };
 
-   useEffect(() => {
+  useEffect(() => {
     if (location.state?.resetToInitial) {
       setSearchTerm('');
       setSelectedCategory('All');
@@ -101,7 +100,7 @@ const Home = () => {
 
         {!loading && !error && (
           <>
-                        {filteredEvents.length === 0 ? (
+            {filteredEvents.length === 0 ? (
               <div className="no-results" role="status" aria-live="polite">
                 <div className="no-results-icon">
                   <SearchX size={40} />
@@ -111,8 +110,8 @@ const Home = () => {
                   {searchTerm
                     ? `No events match "${searchTerm}". Try checking for spelling or searching for a different topic.`
                     : selectedCategory !== 'All'
-                    ? `No upcoming events in the "${selectedCategory}" category.`
-                    : 'There are currently no events available.'}
+                      ? `No upcoming events in the "${selectedCategory}" category.`
+                      : 'There are currently no events available.'}
                 </p>
                 {(searchTerm || selectedCategory !== 'All') && (
                   <button

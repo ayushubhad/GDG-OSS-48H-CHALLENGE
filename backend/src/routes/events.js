@@ -3,30 +3,25 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../supabase');
 
-
 router.get('/', async (req, res) => {
   try {
     const { data, error } = await supabase.from('events').select('*');
 
-       if (error) {
+    if (error) {
       return res.status(500).json({ error: error.message });
     }
 
     res.status(200).json(data);
   } catch (err) {
-      res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-  
-
 
 router.get('/:id', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('events')
-      
-      
-      
+
       .select('*')
       .eq('id', req.params.id)
       .single();
@@ -37,8 +32,6 @@ router.get('/:id', async (req, res) => {
 
     res.status(200).json(data);
   } catch (err) {
-    
-    
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

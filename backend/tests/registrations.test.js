@@ -24,7 +24,7 @@ describe('Registrations API', () => {
         college: 'Test College',
         eventId: 'event-001',
       };
-      
+
       // First registration should succeed (201)
       const firstRes = await request(app).post('/api/register').send(duplicateData);
       expect(firstRes.statusCode).toEqual(201);

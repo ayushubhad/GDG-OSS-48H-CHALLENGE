@@ -50,12 +50,7 @@ const RegistrationForm = ({ eventId, onSuccess }) => {
       </h3>
 
       {status === 'error' && (
-        <div
-          id="form-error"
-          className="error-message"
-          role="alert"
-          aria-live="assertive"
-        >
+        <div id="form-error" className="error-message" role="alert" aria-live="assertive">
           {errorMessage}
         </div>
       )}

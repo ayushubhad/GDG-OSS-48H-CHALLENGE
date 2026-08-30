@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const    supabase = require('../supabase');
+const supabase = require('../supabase');
 
- 
 // POST /api/register
 router.post('/', async (req, res) => {
   const { name, email, college, eventId } = req.body;
@@ -49,7 +48,7 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Event is already fully booked' });
     }
 
-     const newRegistration = {
+    const newRegistration = {
       id: `reg-${Date.now()}`,
       name: trimmedName,
       email: normalizedEmail,
@@ -57,7 +56,6 @@ router.post('/', async (req, res) => {
       eventId,
       registeredAt: new Date().toISOString(),
     };
-
 
     // 3. Insert registration record into Supabase
     const { data, error: insertError } = await supabase

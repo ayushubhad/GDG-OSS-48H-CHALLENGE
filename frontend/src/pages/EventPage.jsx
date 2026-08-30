@@ -20,7 +20,9 @@ const EventPage = () => {
       setError(null);
       const [data] = await Promise.all([
         getEventById(id),
-        showLoading ? new Promise((resolve) => setTimeout(resolve, LOADER_DELAY)) : Promise.resolve(),
+        showLoading
+          ? new Promise((resolve) => setTimeout(resolve, LOADER_DELAY))
+          : Promise.resolve(),
       ]);
       setEvent(data);
     } catch (err) {

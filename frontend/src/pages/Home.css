@@ -66,7 +66,7 @@
 }
 
 .no-results p {
-   color: var(--text-light);
+  color: var(--text-light);
   font-size: 1rem;
   line-height: 1.6;
   max-width: 420px;
